@@ -11,7 +11,7 @@ import {
   CardText,
   CardContent,
 } from "./PokemonCard.styles";
-import { IconButton } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 
 interface PokemonCardProps {
   card: Card;
@@ -19,14 +19,20 @@ interface PokemonCardProps {
 const PokemonCard: React.FC<PokemonCardProps> = ({ card }) => {
   const dispatch = useDispatch();
   return (
-    <CardContainer style={{ maxWidth: 345 }}>
+    <CardContainer>
       <CardImage src={card.images.small} alt={card.name} />
       <CardContent>
         <CardTitle>{card.name} </CardTitle>
-        <CardText>{`${calculateCardPrice(card)} €`}</CardText>
-        <IconButton onClick={() => dispatch(addCard(card))}>
-          <ShoppingCartIcon />
-        </IconButton>
+        <Grid container>
+          <Grid item xs={6}>
+            <CardText>{`${calculateCardPrice(card)} €`}</CardText>
+          </Grid>
+          <Grid xs={6} display={"flex"} justifyContent={"end"}>
+            <IconButton onClick={() => dispatch(addCard(card))}>
+              <ShoppingCartIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
       </CardContent>
     </CardContainer>
   );

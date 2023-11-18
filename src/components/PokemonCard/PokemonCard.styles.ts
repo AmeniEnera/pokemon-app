@@ -12,7 +12,7 @@ export const CardContainer = styled.div`
 
 export const CardImage = styled.img`
   width: 100%;
-  height: 150px;
+  height: 350px;
   object-fit: cover;
 `;
 
@@ -24,8 +24,9 @@ export const CardTitle = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 8px;
+  color: #dc0c0c;
 `;
 
-export const CardText = styled.p`
+export const CardText = styled.h3`
   color: #555;
 `;
