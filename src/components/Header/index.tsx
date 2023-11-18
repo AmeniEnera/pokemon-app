@@ -30,7 +30,7 @@ const Header = () => {
           <LogoImage src="../../pokemon.png" alt="Logo de l'application" />
         </Link>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={2} display={"flex"} justifyContent={"end"}>
         <ShoppingCardContainer to={"/shopping-cart"}>
           <ShoppingCard itemsNb={totalQuantity} />
           <TotalContainer>{totalPrice} €</TotalContainer>
