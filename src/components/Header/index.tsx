@@ -1,12 +1,15 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules/reducers";
 import { calculateCardPrice } from "../../services/cards";
 import { Link } from "react-router-dom";
+import {
+  HeaderContainer,
+  LogoImage,
+  ShoppingCardContainer,
+  TotalContainer,
+} from "./Header.styles";
+import ShoppingCard from "./ShoppingCard";
+import { Grid } from "@mui/material";
 
 const Header = () => {
   const cards = useSelector((state: RootState) => state.shoppingCart.items);
@@ -21,25 +24,19 @@ const Header = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            Pokemon
-          </Typography>
-          <Link to={"/"}>Accueil</Link>
-          <Link to={"/shopping-cart"}>
-            <div>{totalQuantity} items</div>
-            <div>{totalPrice} €</div>
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <HeaderContainer container>
+      <Grid item xs={6}>
+        <Link to={"/"}>
+          <LogoImage src="../../pokemon.png" alt="Logo de l'application" />
+        </Link>
+      </Grid>
+      <Grid item xs={2}>
+        <ShoppingCardContainer to={"/shopping-cart"}>
+          <ShoppingCard itemsNb={totalQuantity} />
+          <TotalContainer>{totalPrice} €</TotalContainer>
+        </ShoppingCardContainer>
+      </Grid>
+    </HeaderContainer>
   );
 };
 
