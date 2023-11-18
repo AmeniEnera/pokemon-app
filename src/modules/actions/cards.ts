@@ -13,6 +13,7 @@ import {
     RemoveCardAction
 } from '../types/cards';
 import { Card } from '../../types/cards';
+import { CartItem } from '../types/shoppingCart';
 
 
 export const fetchCardsRequest = (): FetchCardsRequestAction => ({
@@ -34,9 +35,9 @@ export const addCard = (card: Card): AddCardAction => ({
     payload: card,
 });
 
-export const removeCard = (cardId: string): RemoveCardAction => ({
+export const removeCard = (cartItem: CartItem): RemoveCardAction => ({
     type: REMOVE_FROM_CART,
-    payload: cardId,
+    payload: cartItem,
 });
 
 

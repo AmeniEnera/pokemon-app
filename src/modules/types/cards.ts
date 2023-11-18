@@ -6,6 +6,7 @@ import {
     FETCH_CARDS_SUCCESS,
     REMOVE_FROM_CART
 } from "../constants/cards";
+import { CartItem } from "./shoppingCart";
 
 export type FetchCardsRequestAction = {
     type: typeof FETCH_CARDS_REQUEST;
@@ -28,7 +29,7 @@ export type AddCardAction = {
 
 export type RemoveCardAction = {
     type: typeof REMOVE_FROM_CART;
-    payload: string;
+    payload: CartItem;
 }
 
 export type ShoppingCartActions = AddCardAction | RemoveCardAction

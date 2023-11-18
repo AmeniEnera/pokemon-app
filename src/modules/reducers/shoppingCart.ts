@@ -4,11 +4,9 @@ import {
     REMOVE_FROM_CART,
   } from "../constants/cards";
 import { ShoppingCartActions } from "../types/cards";
+import { CartItem } from "../types/shoppingCart";
   
-  interface CartItem {
-    card: Card;
-    quantity: number;
-  }
+
   
   interface CartState {
     items: CartItem[];
@@ -23,9 +21,8 @@ import { ShoppingCartActions } from "../types/cards";
   const shoppingCartReducer = (state = initialState, action: ShoppingCartActions): CartState => {
     switch (action.type) {
       case ADD_TO_CART:
-        const existingItem = state.items.find((item) => item.card.id === action.payload.id);
   
-        if (existingItem) {
+        if (state.items.find((item) => item.card.id === action.payload.id)) {
           return {
             ...state,
             items: state.items.map((item) =>
@@ -42,11 +39,22 @@ import { ShoppingCartActions } from "../types/cards";
         }
   
       case REMOVE_FROM_CART:
-        return {
+        if (action.payload.quantity > 1) {
+          return {
+            ...state,
+            items: state.items.map((item) =>
+              item.card.id === action.payload.card.id
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          };
+        } else {
+          return {
           ...state,
-          items: state.items.filter((item) => item.card.id !== action.payload),
+          items: state.items.filter((item) => item.card.id !== action.payload.card.id),
         };
-  
+        }
+        
       default:
         return state;
     }
