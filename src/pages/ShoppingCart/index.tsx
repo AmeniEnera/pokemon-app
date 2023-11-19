@@ -1,49 +1,32 @@
-import { Grid, IconButton, Typography } from "@mui/material";
-import React from "react";
+import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules/reducers";
-import { styled } from "styled-components";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { useDispatch } from "react-redux";
-import { addCard, removeCard } from "../../modules/actions/cards";
-
-const ItemContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const AddRemoveContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
+import CartItem from "../../components/CartItem";
+import { calculateCardPrice } from "../../services/cards";
+import { TotalContainer } from "./ShoppingCard.styles";
 
 const ShoppingCart = () => {
   const items = useSelector((state: RootState) => state.shoppingCart.items);
-  const dispatch = useDispatch();
 
+  const totalQuantity = items.reduce(
+    (total, currentItem) => total + currentItem.quantity,
+    0
+  );
+  const totalPrice = items.reduce(
+    (total, currentItem) =>
+      total + calculateCardPrice(currentItem.card) * currentItem.quantity,
+    0
+  );
   return (
     <Grid container>
-      <Grid item sm={9}>
+      <TotalContainer item xs={12} style={{ margin: "20px" }}>
+        <h3>Total : {totalPrice} €</h3>
+      </TotalContainer>
+      <Grid item xs={12}>
         {items.map((item) => {
-          return (
-            <ItemContainer key={item.card.id}>
-              <img src={item.card.images.small} />
-              <div>{item.card.name}</div>
-              <AddRemoveContainer>
-                <IconButton onClick={() => dispatch(removeCard(item))}>
-                  <RemoveIcon />
-                </IconButton>
-                <Typography variant="body2">{item.quantity}</Typography>
-                <IconButton onClick={() => dispatch(addCard(item.card))}>
-                  <AddIcon />
-                </IconButton>
-              </AddRemoveContainer>
-            </ItemContainer>
-          );
+          return <CartItem key={item.card.id} item={item} />;
         })}
       </Grid>
-      <Grid item sm={3}></Grid>
     </Grid>
   );
 };
