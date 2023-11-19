@@ -12,22 +12,29 @@ import {
   CardContent,
 } from "./PokemonCard.styles";
 import { Grid, IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface PokemonCardProps {
   card: Card;
 }
 const PokemonCard: React.FC<PokemonCardProps> = ({ card }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <CardContainer>
-      <CardImage src={card.images.small} alt={card.name} />
+      <CardImage
+        onClick={() => navigate(`/card/${card.id}`, { state: { card } })}
+        src={card.images.small}
+        alt={card.name}
+      />
       <CardContent>
         <CardTitle>{card.name} </CardTitle>
         <Grid container>
           <Grid item xs={6}>
             <CardText>{`${calculateCardPrice(card)} €`}</CardText>
           </Grid>
-          <Grid xs={6} display={"flex"} justifyContent={"end"}>
+          <Grid item xs={6} display={"flex"} justifyContent={"end"}>
             <IconButton onClick={() => dispatch(addCard(card))}>
               <ShoppingCartIcon />
             </IconButton>

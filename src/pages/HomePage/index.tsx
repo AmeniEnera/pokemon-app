@@ -11,9 +11,11 @@ import PokemonCard from "../../components/PokemonCard";
 import PokeballLoader from "../../components/PokeballLoader";
 import { HomePageContainer, PokemonCardContainer } from "./HomePage.styles";
 import { getCards } from "../../services/cards";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
   const cards = useSelector((state: RootState) => state.cards.data);
   const loading = useSelector((state: RootState) => state.cards.loading);
   const error = useSelector((state: RootState) => state.cards.error);
