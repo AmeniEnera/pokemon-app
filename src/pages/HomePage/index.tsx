@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCardsFailure,
@@ -10,15 +10,46 @@ import { Grid } from "@mui/material";
 import PokemonCard from "../../components/PokemonCard";
 import PokeballLoader from "../../components/PokeballLoader";
 import { HomePageContainer, PokemonCardContainer } from "./HomePage.styles";
-import { getCards } from "../../services/cards";
-import { useNavigate } from "react-router-dom";
+import { calculateCardPrice, getCards } from "../../services/cards";
+import CardFilters from "../../components/CardFilters";
+import { Card } from "../../types/cards";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
   const cards = useSelector((state: RootState) => state.cards.data);
   const loading = useSelector((state: RootState) => state.cards.loading);
-  const error = useSelector((state: RootState) => state.cards.error);
+  const filters = useSelector((state: RootState) => state.cards.filters);
+  const [filteredCards, setFilteredCards] = useState(cards);
+
+  const applySort = (filtered: Card[]) => {
+    if (filters.sort === "asc") {
+      setFilteredCards(
+        [...filtered].sort(
+          (a, b) => calculateCardPrice(a) - calculateCardPrice(b)
+        )
+      );
+    } else if (filters.sort === "desc") {
+      setFilteredCards(
+        [...filtered].sort(
+          (a, b) => calculateCardPrice(b) - calculateCardPrice(a)
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    const filtered = cards.filter((card) => {
+      return (
+        (filters.rarity.length === 0 || filters.rarity.includes(card.rarity)) &&
+        (filters.types.length === 0 ||
+          card.types.every((element) => filters.types.includes(element)))
+      );
+    });
+
+    setFilteredCards(filtered);
+    applySort(filtered);
+  }, [cards, filters]);
 
   const getCardsInformations = async () => {
     let card = await getCards();
@@ -37,23 +68,28 @@ const HomePage = () => {
   }, [dispatch, cards]);
 
   return (
-    <HomePageContainer id="HomePageContainer">
+    <HomePageContainer>
       {loading ? (
         <PokeballLoader />
       ) : (
-        <Grid container spacing={2}>
-          {cards.map((card) => (
-            <PokemonCardContainer
-              item
-              key={card.id}
-              xs={12}
-              sm={6}
-              md={4}
-              lg={3}
-            >
-              <PokemonCard card={card} />
-            </PokemonCardContainer>
-          ))}
+        <Grid container>
+          <Grid item xs={12}>
+            <CardFilters />
+          </Grid>
+          <Grid item container spacing={2}>
+            {filteredCards.map((card) => (
+              <PokemonCardContainer
+                item
+                key={card.id}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+              >
+                <PokemonCard card={card} />
+              </PokemonCardContainer>
+            ))}
+          </Grid>
         </Grid>
       )}
     </HomePageContainer>
