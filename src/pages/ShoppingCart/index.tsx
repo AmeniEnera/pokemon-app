@@ -8,10 +8,6 @@ import { TotalContainer } from "./ShoppingCard.styles";
 const ShoppingCart = () => {
   const items = useSelector((state: RootState) => state.shoppingCart.items);
 
-  const totalQuantity = items.reduce(
-    (total, currentItem) => total + currentItem.quantity,
-    0
-  );
   const totalPrice = items.reduce(
     (total, currentItem) =>
       total + calculateCardPrice(currentItem.card) * currentItem.quantity,
@@ -20,7 +16,7 @@ const ShoppingCart = () => {
   return (
     <Grid container>
       <TotalContainer item xs={12} style={{ margin: "20px" }}>
-        <h3>Total : {totalPrice} €</h3>
+        <h3>Total : {totalPrice.toFixed(2)} €</h3>
       </TotalContainer>
       <Grid item xs={12}>
         {items.map((item) => {

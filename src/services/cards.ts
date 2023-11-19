@@ -3,20 +3,30 @@ import { Card } from "../types/cards";
 
 export const calculateCardPrice = (card: Card): number => {
   const rarity = card.rarity?.toLowerCase();
-  const basePrice = 1.0;
+  const basePrice = card.cardmarket?.prices.averageSellPrice
+    ? card.cardmarket?.prices.averageSellPrice
+    : 1.0;
+
+  let calculatedPrice;
 
   switch (rarity) {
     case "common":
-      return basePrice * 1.0;
+      calculatedPrice = basePrice * 1.0;
+      break;
     case "uncommon":
-      return basePrice * 1.5;
+      calculatedPrice = basePrice * 1.5;
+      break;
     case "rare":
-      return basePrice * 2.0;
+      calculatedPrice = basePrice * 2.0;
+      break;
     case "rare holo":
-      return basePrice * 3.0;
+      calculatedPrice = basePrice * 3.0;
+      break;
     default:
-      return basePrice;
+      calculatedPrice = basePrice;
   }
+
+  return Number(calculatedPrice.toFixed(2));
 };
 
 export const getCards = async () => {

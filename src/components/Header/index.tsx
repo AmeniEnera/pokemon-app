@@ -33,7 +33,7 @@ const Header = () => {
       <Grid item xs={2} display={"flex"} justifyContent={"end"}>
         <ShoppingCardContainer to={"/shopping-cart"}>
           <ShoppingCard itemsNb={totalQuantity} />
-          <TotalContainer>{totalPrice} €</TotalContainer>
+          <TotalContainer>{totalPrice.toFixed(2)} €</TotalContainer>
         </ShoppingCardContainer>
       </Grid>
     </HeaderContainer>
