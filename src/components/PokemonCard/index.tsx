@@ -24,7 +24,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ card }) => {
   return (
     <CardContainer>
       <CardImage
-        onClick={() => navigate(`/card/${card.id}`, { state: { card } })}
+        onClick={() => navigate(`/card/${card.id}`)}
         src={card.images.small}
         alt={card.name}
       />

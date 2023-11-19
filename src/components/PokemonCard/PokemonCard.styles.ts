@@ -8,6 +8,7 @@ export const CardContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
+  cursor: pointer;
 `;
 
 export const CardImage = styled.img`
