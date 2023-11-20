@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
+import "../../styleguide.css";
 
 export const Container = styled.div`
   background-color: #fff;
@@ -63,10 +64,10 @@ export const StyledButton = styled(Button)`
   height: 40px;
 
   && {
-    background-color: #dc0c0c;
+    background-color: var(--primary-background-color);
 
     &:hover {
-      background-color: #dc0c0c;
+      background-color: var(--primary-background-color);
       opacity: 0.8;
     }
   }

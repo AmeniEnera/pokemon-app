@@ -1,9 +1,10 @@
 import { Grid } from "@mui/material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import "../../styleguide.css";
 
 export const HeaderContainer = styled(Grid)`
-  background-color: #f7e6e6;
+  background-color: var(--secondary-background-color);
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -26,6 +27,6 @@ export const ShoppingCardContainer = styled(Link)`
 `;
 
 export const TotalContainer = styled.div`
-  color: #dc0c0c;
+  color: var(--primary-background-color);
   font-weight: bold;
 `;

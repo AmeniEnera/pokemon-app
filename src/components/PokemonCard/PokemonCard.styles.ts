@@ -1,5 +1,5 @@
-import React from "react";
 import styled from "styled-components";
+import "../../styleguide.css";
 
 export const CardContainer = styled.div`
   width: 300px;
@@ -25,7 +25,7 @@ export const CardTitle = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 8px;
-  color: #dc0c0c;
+  color: var(--primary-background-color);
 `;
 
 export const CardText = styled.h3`
