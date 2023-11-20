@@ -64,10 +64,10 @@ export const StyledButton = styled(Button)`
   height: 40px;
 
   && {
-    background-color: var(--primary-background-color);
+    background-color: var(--primary);
 
     &:hover {
-      background-color: var(--primary-background-color);
+      background-color: var(--primary);
       opacity: 0.8;
     }
   }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../../styleguide.css";
 
 export const HeaderContainer = styled(Grid)`
-  background-color: var(--secondary-background-color);
+  background-color: var(--secondary);
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -12,6 +12,7 @@ export const HeaderContainer = styled(Grid)`
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.16);
 `;
 
 export const LogoImage = styled.img`
@@ -27,6 +28,6 @@ export const ShoppingCardContainer = styled(Link)`
 `;
 
 export const TotalContainer = styled.div`
-  color: var(--primary-background-color);
+  color: var(--primary);
   font-weight: bold;
 `;

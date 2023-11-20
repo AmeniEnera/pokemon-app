@@ -10,9 +10,10 @@ import { Grid } from "@mui/material";
 import PokemonCard from "../../components/PokemonCard";
 import PokeballLoader from "../../components/PokeballLoader";
 import { HomePageContainer, PokemonCardContainer } from "./HomePage.styles";
-import { calculateCardPrice, getCards } from "../../services/cards";
+import { calculateCardPrice } from "../../services/cards";
 import CardFilters from "../../components/CardFilters";
 import { Card } from "../../types/cards";
+import { getCards } from "../../services/api";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,9 @@ const HomePage = () => {
   useEffect(() => {
     const filtered = cards.filter((card) => {
       return (
-        (filters.rarity.length === 0 || filters.rarity.includes(card.rarity)) &&
+        (filters.rarity.length === 0 ||
+          !card.rarity ||
+          filters.rarity.includes(card.rarity)) &&
         (filters.types.length === 0 ||
           card.types.every((element) => filters.types.includes(element)))
       );

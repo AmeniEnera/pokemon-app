@@ -1,5 +1,4 @@
 import { Card } from "../types/cards";
-import { httpClient } from ".";
 
 export const calculateCardPrice = (card: Card): number => {
   const rarity = card.rarity?.toLowerCase();
@@ -27,15 +26,4 @@ export const calculateCardPrice = (card: Card): number => {
   }
 
   return Number(calculatedPrice.toFixed(2));
-};
-
-export const getCards = async () => {
-  return await httpClient
-    .get("v2/cards")
-    .then((response) => {
-      return response.data.data;
-    })
-    .catch(() => {
-      return null;
-    });
 };

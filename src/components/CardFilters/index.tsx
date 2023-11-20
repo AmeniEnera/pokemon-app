@@ -47,7 +47,7 @@ const CardFilters: React.FC = () => {
             property="rarity"
             label="Rarity"
             filters={localFilters.rarity}
-            items={rarities}
+            items={rarities as string[]}
             handleFilterChange={handleFilterChange}
           />
 

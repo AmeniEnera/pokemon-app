@@ -1,5 +1,4 @@
 :root {
-    --primary-background-color: #dc0c0c;
-    --secondary-background-color: #f7e6e6;
-  }
-  
+  --primary: #dc0c0c;
+  --secondary: #f7e6e6;
+}

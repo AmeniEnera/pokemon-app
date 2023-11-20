@@ -1,45 +1,44 @@
-import { Divider, Grid, IconButton, Typography } from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 import React from "react";
-import { removeCard, addCard } from "../../modules/actions/cards";
-import {
-  ItemContainer,
-  AddRemoveContainer,
-  ItemImage,
-} from "./CartItem.styles";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { Card } from "../../types/cards";
+import { ItemContainer, ItemImage, ItemName } from "./CartItem.styles";
 import { useDispatch } from "react-redux";
+import { CartItem as CartItemType } from "../../modules/types/shoppingCart";
+import { useNavigate } from "react-router-dom";
+import QuantityUpdater from "../QuantityUpdater";
 
 interface CartItemProps {
-  item: {
-    card: Card;
-    quantity: number;
-  };
+  item: CartItemType;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div>
       <ItemContainer key={item.card.id} container>
-        <Grid item xs={4}>
-          <ItemImage src={item.card.images.small} />
+        <Grid item xs={6} sm={4}>
+          <ItemImage
+            src={item.card.images.small}
+            onClick={() => navigate(`/card/${item.card.id}`)}
+          />
         </Grid>
-        <Grid item xs={4}>
-          <div>{item.card.name}</div>
-        </Grid>
-        <Grid item xs={4}>
-          <AddRemoveContainer>
-            <IconButton onClick={() => dispatch(removeCard(item))}>
-              <RemoveIcon />
-            </IconButton>
-            <Typography variant="body2">{item.quantity}</Typography>
-            <IconButton onClick={() => dispatch(addCard(item.card))}>
-              <AddIcon />
-            </IconButton>
-          </AddRemoveContainer>
+
+        <Grid
+          container
+          item
+          xs={6}
+          sm={8}
+          spacing={2}
+          display="flex"
+          alignItems="center"
+        >
+          <Grid item xs={12} sm={5} display="flex" justifyContent="center">
+            <ItemName>{item.card.name}</ItemName>
+          </Grid>
+          <Grid item xs={12} sm={7} display="flex" justifyContent="center">
+            <QuantityUpdater item={item} />
+          </Grid>
         </Grid>
       </ItemContainer>
 

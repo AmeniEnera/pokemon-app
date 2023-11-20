@@ -13,6 +13,9 @@ import {
 } from "./PokemonCard.styles";
 import { Grid, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../modules/reducers";
+import { useSelector } from "react-redux";
+import QuantityUpdater from "../QuantityUpdater";
 
 interface PokemonCardProps {
   card: Card;
@@ -20,13 +23,24 @@ interface PokemonCardProps {
 const PokemonCard: React.FC<PokemonCardProps> = ({ card }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const items = useSelector((state: RootState) => state.shoppingCart.items);
+
+  const handleAddCard = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    card: Card
+  ) => {
+    e.stopPropagation();
+    dispatch(addCard(card));
+  };
+
+  const cardItem = items.find((item) => item.card.id === card.id);
 
   return (
     <CardContainer>
       <CardImage
-        onClick={() => navigate(`/card/${card.id}`)}
         src={card.images.small}
         alt={card.name}
+        onClick={() => navigate(`/card/${card.id}`)}
       />
       <CardContent>
         <CardTitle>{card.name} </CardTitle>
@@ -35,9 +49,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ card }) => {
             <CardText>{`${calculateCardPrice(card)} €`}</CardText>
           </Grid>
           <Grid item xs={6} display={"flex"} justifyContent={"end"}>
-            <IconButton onClick={() => dispatch(addCard(card))}>
-              <ShoppingCartIcon />
-            </IconButton>
+            {!cardItem || cardItem.quantity === 0 ? (
+              <IconButton onClick={(e) => handleAddCard(e, card)}>
+                <ShoppingCartIcon />
+              </IconButton>
+            ) : (
+              <QuantityUpdater item={cardItem} />
+            )}
           </Grid>
         </Grid>
       </CardContent>

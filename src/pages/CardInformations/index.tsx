@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import {
 } from "./CardInformations.styles";
 import { useDispatch } from "react-redux";
 import { addCard } from "../../modules/actions/cards";
+import QuantityUpdater from "../../components/QuantityUpdater";
 
 const CardInformations = () => {
   const { id } = useParams();
@@ -21,19 +22,33 @@ const CardInformations = () => {
 
   const dispatch = useDispatch();
 
+  const items = useSelector((state: RootState) => state.shoppingCart.items);
+
+  useEffect(() => {
+    // Scroll to the top at page render
+    window.scrollTo(0, 0);
+  }, []);
+
   if (!card) {
     return null;
   }
+
+  const cardItem = items.find((item) => item.card.id === card.id);
+
   return (
     <Container>
       <Image>
         <img src={card.images.small} alt={card.name} />
-        <StyledButton
-          variant="contained"
-          onClick={() => dispatch(addCard(card))}
-        >
-          Add to cart
-        </StyledButton>
+        {!cardItem || cardItem.quantity === 0 ? (
+          <StyledButton
+            variant="contained"
+            onClick={() => dispatch(addCard(card))}
+          >
+            Add to cart
+          </StyledButton>
+        ) : (
+          <QuantityUpdater item={cardItem} />
+        )}
       </Image>
 
       <Info>
