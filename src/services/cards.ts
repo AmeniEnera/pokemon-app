@@ -1,5 +1,5 @@
-import axios from "axios";
 import { Card } from "../types/cards";
+import { httpClient } from ".";
 
 export const calculateCardPrice = (card: Card): number => {
   const rarity = card.rarity?.toLowerCase();
@@ -30,8 +30,8 @@ export const calculateCardPrice = (card: Card): number => {
 };
 
 export const getCards = async () => {
-  return await axios
-    .get("https://api.pokemontcg.io/v2/cards")
+  return await httpClient
+    .get("v2/cards")
     .then((response) => {
       return response.data.data;
     })
