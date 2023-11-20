@@ -8,6 +8,7 @@ import {
   Container,
   Image,
   Info,
+  QuantityUpdaterContainer,
   StyledButton,
 } from "./CardInformations.styles";
 import { useDispatch } from "react-redux";
@@ -47,7 +48,9 @@ const CardInformations = () => {
             Add to cart
           </StyledButton>
         ) : (
-          <QuantityUpdater item={cardItem} />
+          <QuantityUpdaterContainer>
+            <QuantityUpdater item={cardItem} />
+          </QuantityUpdaterContainer>
         )}
       </Image>
 

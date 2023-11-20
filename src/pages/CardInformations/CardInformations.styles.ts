@@ -22,6 +22,10 @@ export const Image = styled.div`
     height: auto;
     margin-right: 40px;
     margin-bottom: 20px;
+
+    @media (max-width: 600px) {
+      margin-right: 0;
+    }
   }
 
   @media (max-width: 600px) {
@@ -71,4 +75,10 @@ export const StyledButton = styled(Button)`
       opacity: 0.8;
     }
   }
+`;
+
+export const QuantityUpdaterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
