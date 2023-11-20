@@ -11,11 +11,11 @@ import { CartItem } from "../../modules/types/shoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-type Props = {
+type QuantityUpdaterProps = {
   item: CartItem;
 };
 
-const QuantityUpdater = ({ item }: Props) => {
+const QuantityUpdater = ({ item }: QuantityUpdaterProps) => {
   const dispatch = useDispatch();
 
   return (

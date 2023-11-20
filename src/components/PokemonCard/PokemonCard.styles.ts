@@ -8,12 +8,12 @@ export const CardContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 12px 11px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  cursor: pointer;
 `;
 
 export const CardImage = styled.img`
   width: 100%;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 export const CardContent = styled.div`

@@ -15,7 +15,7 @@ export type FetchCardsRequestAction = {
 
 export type FetchCardsSuccessAction = {
   type: typeof FETCH_CARDS_SUCCESS;
-  payload: any[];
+  payload: Card[];
 };
 
 export type FetchCardsFailureAction = {

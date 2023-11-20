@@ -8,11 +8,11 @@ export const AddRemoveContainer = styled.div`
 
 export const AddButton = styled(IconButton)`
   && {
-    background: #d6180b;
+    background: var(--primary);
     color: white;
 
     &:hover {
-      background: #d6180b;
+      background: var(--primary);
       opacity: 0.8;
     }
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCardsFailure,
@@ -23,21 +23,24 @@ const HomePage = () => {
   const filters = useSelector((state: RootState) => state.cards.filters);
   const [filteredCards, setFilteredCards] = useState(cards);
 
-  const applySort = (filtered: Card[]) => {
-    if (filters.sort === "asc") {
-      setFilteredCards(
-        [...filtered].sort(
-          (a, b) => calculateCardPrice(a) - calculateCardPrice(b)
-        )
-      );
-    } else if (filters.sort === "desc") {
-      setFilteredCards(
-        [...filtered].sort(
-          (a, b) => calculateCardPrice(b) - calculateCardPrice(a)
-        )
-      );
-    }
-  };
+  const applySort = useCallback(
+    (filtered: Card[]) => {
+      if (filters.sort === "asc") {
+        setFilteredCards(
+          [...filtered].sort(
+            (a, b) => calculateCardPrice(a) - calculateCardPrice(b)
+          )
+        );
+      } else if (filters.sort === "desc") {
+        setFilteredCards(
+          [...filtered].sort(
+            (a, b) => calculateCardPrice(b) - calculateCardPrice(a)
+          )
+        );
+      }
+    },
+    [filters.sort]
+  );
 
   useEffect(() => {
     const filtered = cards.filter((card) => {
@@ -52,18 +55,18 @@ const HomePage = () => {
 
     setFilteredCards(filtered);
     applySort(filtered);
-  }, [cards, filters]);
-
-  const getCardsInformations = async () => {
-    let card = await getCards();
-    if (card) {
-      dispatch(fetchCardsSuccess(card));
-    } else {
-      dispatch(fetchCardsFailure("Failed to fetch cards."));
-    }
-  };
+  }, [cards, filters, applySort]);
 
   useEffect(() => {
+    const getCardsInformations = async () => {
+      let card = await getCards();
+      if (card) {
+        dispatch(fetchCardsSuccess(card));
+      } else {
+        dispatch(fetchCardsFailure("Failed to fetch cards."));
+      }
+    };
+
     if (cards.length === 0) {
       dispatch(fetchCardsRequest());
       getCardsInformations();

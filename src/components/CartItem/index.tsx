@@ -1,7 +1,6 @@
 import { Divider, Grid } from "@mui/material";
 import React from "react";
 import { ItemContainer, ItemImage, ItemName } from "./CartItem.styles";
-import { useDispatch } from "react-redux";
 import { CartItem as CartItemType } from "../../modules/types/shoppingCart";
 import { useNavigate } from "react-router-dom";
 import QuantityUpdater from "../QuantityUpdater";
@@ -11,7 +10,6 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (

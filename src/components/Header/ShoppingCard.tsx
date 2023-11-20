@@ -27,7 +27,7 @@ const ShoppingCard: React.FC<ShoppingCardProps> = ({ itemsNb }) => {
       <text
         x="750"
         y="100"
-        fill="#dc0c0c"
+        fill="var(--primary)"
         fontSize="300px"
         textAnchor="middle"
         alignmentBaseline="mathematical"

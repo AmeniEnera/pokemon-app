@@ -36,7 +36,7 @@ const CardFilters: React.FC = () => {
 
   useEffect(() => {
     dispatch(setFilters(localFilters));
-  }, [localFilters]);
+  }, [localFilters, dispatch]);
 
   return (
     <Grid container spacing={6}>
@@ -73,7 +73,7 @@ const CardFilters: React.FC = () => {
               value={localFilters.sort || ""}
               onChange={(e) => handleFilterChange("sort", e.target.value)}
             >
-              <MenuItem value=""></MenuItem>
+              <MenuItem value="">{`\u00A0`}</MenuItem>
               <MenuItem value="asc">Price: Low to High</MenuItem>
               <MenuItem value="desc">Price: High to Low</MenuItem>
             </Select>

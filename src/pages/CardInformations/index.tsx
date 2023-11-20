@@ -31,7 +31,7 @@ const CardInformations = () => {
   }, []);
 
   if (!card) {
-    return null;
+    return <h2> Card not found !</h2>;
   }
 
   const cardItem = items.find((item) => item.card.id === card.id);
